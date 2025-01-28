@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Website</h1>
+    <iframe id="chatbotIframe" src="http://localhost:5173/" frameborder="0" border=none width="100px" height="100px"
+        allowfullscreen="true" style="position:absolute; bottom: 0; left: 50%; transform: translateX(-50%);"></iframe>
+
+    <script>
+        const id = 'ick-4F5F4D372';
+        const iframe = document.getElementById('chatbotIframe');
+        // Listen for messages from the iframe
+        iframe.onload = function () {
+            // Send a message to the iframe
+            // iframe.contentWindow.postMessage('Hello from parents(127.0.0.1:5500)', 'http://localhost:5173');
+            // iframe.contentWindow.postMessage('Loaded', 'http://localhost:5173');
+            iframe.contentWindow.postMessage(id, 'http://localhost:5173');
+        };
+        window.addEventListener('message', (event) => {
+            // Make sure the message is from a trusted origin
+            if (event.origin !== 'http://localhost:5173') return;
+
+            console.log(event.data)
+
+            // Handle the message (e.g., add a class to the parent's document)
+            if (event.data === 'button-clicked') {
+                console.log('Button clicked inside iframe');
+                document.body.classList.add('iframe-active');
+            }
+            if (event.data === 'remove-clicked') {
+                console.log('Button clicked inside iframe');
+                document.body.classList.remove('iframe-active');
+            }
+
+            // Add class to parent's document body when receiving specific message
+            // if (event.data === 'add-class') {
+            //     document.body.classList.add('asd');
+            // }
+        });
+    </script>
+</body>
+
+</html>

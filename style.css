@@ -1,0 +1,21 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #333;
+}
+
+iframe{
+    transition: width 0.5s;
+    transform-origin: bottom right;
+} 
+
+.iframe-active {
+    iframe {
+        height: 100%;
+        width: 100%;
+    }
+}
